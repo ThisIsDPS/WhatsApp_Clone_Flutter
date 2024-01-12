@@ -50,7 +50,7 @@ const info = [
   },
   {
     'name': 'Joseph',
-    'message': 'I am from International Olym...',
+    'message': 'I am from International Olympics',
     'time': '6:02 am',
     'profilePic':
         'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cmFuZG9tJTIwcGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
@@ -99,7 +99,8 @@ const messages = [
   },
   {
     "isMe": false,
-    "text": "haha I wanted you to check out my new channel ^^",
+    "text":
+        "haha I wanted you to check out my new channel ^^ I have over 100k subscribers over it, and I am very happy to tell you that",
     "time": "11:04 am",
   },
   {

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone_flutter/widgets/contacts_list.dart';
+import 'package:whatsapp_clone_flutter/widgets/dynamic_floating_action.dart';
 // import 'package:whatsapp_clone_flutter/utils/colors.dart';
 
-class MobileScreenLayout extends StatelessWidget {
+class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
+
+  @override
+  State<MobileScreenLayout> createState() => _MobileScreenLayoutState();
+}
+
+class _MobileScreenLayoutState extends State<MobileScreenLayout> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +34,33 @@ class MobileScreenLayout extends StatelessWidget {
               icon: const Icon(Icons.more_vert),
             ),
           ],
-          bottom: const TabBar(
+          bottom: TabBar(
             indicatorWeight: 4,
-            tabs: [
+            tabs: const [
               Tab(text: 'Chats'),
               Tab(text: 'Updates'),
               Tab(text: 'Calls'),
             ],
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
           ),
         ),
+        body: IndexedStack(
+          index: _currentIndex,
+          children: const [
+            ContactsList(),
+            Center(
+              child: Text('Updates Tab Content'),
+            ),
+            Center(
+              child: Text('Calls Tab Content'),
+            ),
+          ],
+        ),
+        floatingActionButton: dynamicFloatingActionButton(_currentIndex),
       ),
     );
   }
