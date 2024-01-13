@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Themeing {
   ThemeData getLightTheme() {
     return ThemeData().copyWith(
-      scaffoldBackgroundColor: const Color.fromARGB(255, 248, 245, 245),
+      scaffoldBackgroundColor: const Color.fromARGB(245, 248, 245, 245),
       appBarTheme: const AppBarTheme().copyWith(
         backgroundColor: const Color.fromRGBO(5, 94, 78, 1),
         centerTitle: false,
@@ -40,6 +40,13 @@ class Themeing {
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         elevation: 1,
+      ),
+      elevatedButtonTheme: const ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStatePropertyAll(Color.fromARGB(255, 18, 171, 46)),
+          foregroundColor: MaterialStatePropertyAll(Colors.white),
+        ),
       ),
     );
   }

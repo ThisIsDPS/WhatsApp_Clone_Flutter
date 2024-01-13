@@ -30,7 +30,7 @@ class SenderMessageCard extends StatelessWidget {
             ),
           ),
           color: currentBrightness == Brightness.light
-              ? const Color.fromARGB(232, 246, 248, 246)
+              ? const Color.fromARGB(255, 255, 255, 255)
               : const Color.fromRGBO(31, 44, 52, 1),
           child: Stack(
             children: [
