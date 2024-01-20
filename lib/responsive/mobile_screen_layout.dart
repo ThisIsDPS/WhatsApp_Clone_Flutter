@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone_flutter/widgets/contacts_list.dart';
+import 'package:whatsapp_clone_flutter/features/chat/widgets/contacts_list.dart';
 import 'package:whatsapp_clone_flutter/widgets/dynamic_floating_action.dart';
 // import 'package:whatsapp_clone_flutter/utils/colors.dart';
 
@@ -60,7 +60,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
             ),
           ],
         ),
-        floatingActionButton: dynamicFloatingActionButton(_currentIndex),
+        floatingActionButton: dynamicFloatingActionButton(_currentIndex, context),
       ),
     );
   }

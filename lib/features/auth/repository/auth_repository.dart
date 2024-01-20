@@ -29,6 +29,17 @@ class AuthRepoistory {
     required this.firestore,
   });
 
+  Future<UserModel?> getCurrentUserData() async {
+    var userData =
+        await firestore.collection('users').doc(auth.currentUser?.uid).get();
+
+    UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
+
   void signInWithPhoneNumber(BuildContext context, String phoneNumber) async {
     try {
       await auth.verifyPhoneNumber(
@@ -124,4 +135,13 @@ class AuthRepoistory {
       showSnackBar(context: context, content: e.toString());
     }
   }
+
+  Stream<UserModel> userData(String userId) {
+    return firestore.collection('users').doc(userId).snapshots().map(
+          (event) => UserModel.fromMap(
+            event.data()!,
+          ),
+        );
+  }
+
 }

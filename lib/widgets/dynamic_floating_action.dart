@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone_flutter/features/select_contacts/screens/select_contacts_screen.dart';
 
-Widget dynamicFloatingActionButton(int currentIndex) {
+Widget dynamicFloatingActionButton(int currentIndex, BuildContext context) {
   switch (currentIndex) {
     case 1:
       return FloatingActionButton(
@@ -14,7 +15,9 @@ Widget dynamicFloatingActionButton(int currentIndex) {
       );
     default:
       return FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, SelectContactsScreen.routeName);
+        },
         child: const Icon(Icons.message_rounded),
       );
   }

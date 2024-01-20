@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone_flutter/models/info.dart';
-import 'package:whatsapp_clone_flutter/screens/mobile_chat_screen.dart';
+import 'package:whatsapp_clone_flutter/features/chat/screens/mobile_chat_screen.dart';
 
 class ContactsList extends StatelessWidget {
   const ContactsList({super.key});
@@ -14,7 +14,11 @@ class ContactsList extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const MobileChatScreen(),
+                builder: (context) => const MobileChatScreen(
+                  name: 'DPSSS',
+                  uid: '12345',
+                  // isGroupChat: false,
+                ),
               ),
             );
           },
