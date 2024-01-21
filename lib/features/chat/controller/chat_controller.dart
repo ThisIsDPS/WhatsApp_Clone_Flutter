@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp_clone_flutter/common/enums/message_enum.dart';
 import 'package:whatsapp_clone_flutter/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone_flutter/features/chat/repository/chat_repository.dart';
+import 'package:whatsapp_clone_flutter/models/chat_contact.dart';
+import 'package:whatsapp_clone_flutter/models/message_model.dart';
 
 
 final chatControllerProvider = Provider((ref) {
@@ -20,17 +25,17 @@ class ChatController {
     required this.ref,
   });
 
-  // Stream<List<ChatContact>> chatContacts() {
-  //   return chatRepository.getChatContacts();
-  // }
+  Stream<List<ChatContact>> chatContacts() {
+    return chatRepository.getChatContacts();
+  }
 
   // Stream<List<Group>> chatGroups() {
   //   return chatRepository.getChatGroups();
   // }
 
-  // Stream<List<Message>> chatStream(String recieverUserId) {
-  //   return chatRepository.getChatStream(recieverUserId);
-  // }
+  Stream<List<MessageModel>> chatStream(String recieverUserId) {
+    return chatRepository.getChatStream(recieverUserId);
+  }
 
   // Stream<List<Message>> groupChatStream(String groupId) {
   //   return chatRepository.getGroupChatStream(groupId);
@@ -55,15 +60,15 @@ class ChatController {
         );
     // ref.read(messageReplyProvider.state).update((state) => null);
   }
-/*
+  
   void sendFileMessage(
     BuildContext context,
     File file,
     String recieverUserId,
     MessageEnum messageEnum,
-    bool isGroupChat,
+    // bool isGroupChat,
   ) {
-    final messageReply = ref.read(messageReplyProvider);
+    // final messageReply = ref.read(messageReplyProvider);
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendFileMessage(
             context: context,
@@ -72,13 +77,14 @@ class ChatController {
             senderUserData: value!,
             messageEnum: messageEnum,
             ref: ref,
-            messageReply: messageReply,
-            isGroupChat: isGroupChat,
+            // messageReply: messageReply,
+            // isGroupChat: isGroupChat,
           ),
         );
-    ref.read(messageReplyProvider.state).update((state) => null);
+    // ref.read(messageReplyProvider.state).update((state) => null);
   }
 
+/*
   void sendGIFMessage(
     BuildContext context,
     String gifUrl,

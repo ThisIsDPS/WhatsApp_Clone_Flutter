@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone_flutter/common/enums/message_enum.dart';
+import 'package:whatsapp_clone_flutter/common/utils/utils.dart';
 import 'package:whatsapp_clone_flutter/features/chat/controller/chat_controller.dart';
 
 class BottomChatField extends ConsumerStatefulWidget {
@@ -27,10 +30,10 @@ class BottomChatField extends ConsumerStatefulWidget {
 
 class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   final TextEditingController messageController = TextEditingController();
-  bool isTextFieldEmpty = true;
+  bool isShowSendButton = false;
 
   void sendTextMessage() async {
-    if (!isTextFieldEmpty) {
+    if (isShowSendButton) {
       ref.read(chatControllerProvider).sendTextMessage(
             context,
             messageController.text.trim(),
@@ -38,9 +41,10 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             // widget.isGroupChat,
           );
       setState(() {
-        messageController.text = '';
+        messageController.clear();
+        isShowSendButton = !isShowSendButton;
       });
-    } 
+    }
     // else {
     //   var tempDir = await getTemporaryDirectory();
     //   var path = '${tempDir.path}/flutter_sound.aac';
@@ -62,6 +66,26 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     // }
   }
 
+  void sendFileMessage(
+    File file,
+    MessageEnum messageEnum,
+  ) {
+    ref.read(chatControllerProvider).sendFileMessage(
+          context,
+          file,
+          widget.recieverUserId,
+          messageEnum,
+          // widget.isGroupChat,
+        );
+  }
+
+  void selectImage() async {
+    File? image = await pickImageFromGallery(context);
+    if (image != null) {
+      sendFileMessage(image, MessageEnum.image);
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -69,86 +93,120 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    messageController.addListener(() {
-      setState(() {
-        isTextFieldEmpty = messageController.text.isEmpty;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.85,
-          margin: const EdgeInsetsDirectional.all(5),
-          child: TextField(
-            controller: messageController,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: widget.fillColor,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(Icons.emoji_emotions_outlined,
-                    color: widget.iconColor),
-              ),
-              suffixIcon: isTextFieldEmpty
-                  ? Container(
-                      width: MediaQuery.of(context).size.width * 0.28,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Icon(Icons.attach_file_rounded,
-                              color: widget.iconColor,),
-                          Icon(Icons.currency_rupee_rounded,
-                              color: widget.iconColor),
-                          Icon(Icons.camera_alt_rounded,
-                              color: widget.iconColor),
-                        ],
-                      ))
-                  : Icon(Icons.attach_file_rounded, color: widget.iconColor),
-              hintText: 'Type a Message!',
-              hintStyle: TextStyle(
-                color: widget.hintTextColor,
-              ),
-              contentPadding: const EdgeInsets.all(12),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-        ),
-        ClipOval(
-          child: Container(
-            color: widget.currentBrightness == Brightness.light
-                ? const Color.fromRGBO(5, 94, 78, 1)
-                : const Color.fromARGB(201, 49, 186, 161),
-            child: IconButton(
-              icon: isTextFieldEmpty
-                  ? const Icon(
-                      Icons.mic,
-                      color: Color.fromRGBO(237, 233, 233, 1),
-                    )
-                  : const Icon(
-                      Icons.send,
-                      color: Color.fromRGBO(237, 233, 233, 1),
-                    ),
-              onPressed: () {
-                // Add your send message logic here
-                print('In');
-                sendTextMessage();
-
+    return Container(
+      // color: Colors.red,
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: TextFormField(
+              maxLines: null,
+              controller: messageController,
+              onChanged: (val) {
+                if (val.trim().isNotEmpty) {
+                  setState(() {
+                    isShowSendButton = true;
+                  });
+                } else {
+                  setState(() {
+                    isShowSendButton = false;
+                  });
+                }
               },
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: widget.fillColor,
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Icon(Icons.emoji_emotions_outlined,
+                      color: widget.iconColor),
+                ),
+                suffixIcon: !isShowSendButton
+                    ? Container(
+                        // color: Colors.yellow,
+                        width: MediaQuery.of(context).size.width * 0.36,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              visualDensity: VisualDensity.compact,
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.attach_file_rounded,
+                                color: widget.iconColor,
+                              ),
+                            ),
+                            IconButton(
+                              visualDensity: VisualDensity.compact,
+                              onPressed: () {},
+                              icon: Icon(Icons.currency_rupee_rounded,
+                                  color: widget.iconColor),
+                            ),
+                            IconButton(
+                              visualDensity: VisualDensity.compact,
+                              onPressed: selectImage,
+                              icon: Icon(Icons.camera_alt_rounded,
+                                  color: widget.iconColor),
+                            ),
+                          ],
+                        ),
+                      )
+                    : IconButton(
+                        visualDensity: VisualDensity.compact,
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.attach_file_rounded,
+                          color: widget.iconColor,
+                        ),
+                      ),
+                hintText: 'Type a Message!',
+                hintStyle: TextStyle(
+                  color: widget.hintTextColor,
+                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: BorderSide.none,
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+          const SizedBox(width: 5),
+          ClipOval(
+            child: Container(
+              color: widget.currentBrightness == Brightness.light
+                  ? const Color.fromRGBO(5, 94, 78, 1)
+                  : const Color.fromARGB(201, 49, 186, 161),
+              child: GestureDetector(
+                onTap: () {
+                  sendTextMessage();
+                },
+                child: !isShowSendButton
+                    ? const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Icon(
+                          Icons.mic,
+                          color: Color.fromRGBO(237, 233, 233, 1),
+                          size: 24,
+                        ),
+                      )
+                    : const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Icon(
+                          Icons.send,
+                          color: Color.fromRGBO(237, 233, 233, 1),
+                          size: 24,
+                        ),
+                      ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -55,6 +55,7 @@ class MobileChatScreen extends ConsumerWidget {
                 return const Loader();
               }
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     name,
@@ -91,8 +92,10 @@ class MobileChatScreen extends ConsumerWidget {
         bottom: true,
         child: Column(
           children: [
-            const Expanded(
-              child: ChatList(),
+            Expanded(
+              child: ChatList(
+                recieverUserId: uid,
+              ),
             ),
             BottomChatField(
               fillColor: fillColor,
