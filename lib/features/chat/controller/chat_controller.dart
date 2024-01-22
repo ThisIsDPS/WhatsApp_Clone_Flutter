@@ -84,14 +84,14 @@ class ChatController {
     // ref.read(messageReplyProvider.state).update((state) => null);
   }
 
-/*
+  
   void sendGIFMessage(
     BuildContext context,
     String gifUrl,
     String recieverUserId,
-    bool isGroupChat,
+    // bool isGroupChat,
   ) {
-    final messageReply = ref.read(messageReplyProvider);
+    // final messageReply = ref.read(messageReplyProvider);
     int gifUrlPartIndex = gifUrl.lastIndexOf('-') + 1;
     String gifUrlPart = gifUrl.substring(gifUrlPartIndex);
     String newgifUrl = 'https://i.giphy.com/media/$gifUrlPart/200.gif';
@@ -102,13 +102,14 @@ class ChatController {
             gifUrl: newgifUrl,
             recieverUserId: recieverUserId,
             senderUser: value!,
-            messageReply: messageReply,
-            isGroupChat: isGroupChat,
+            // messageReply: messageReply,
+            // isGroupChat: isGroupChat,
           ),
         );
-    ref.read(messageReplyProvider.state).update((state) => null);
+    // ref.read(messageReplyProvider.state).update((state) => null);
   }
-
+  
+/*
   void setChatMessageSeen(
     BuildContext context,
     String recieverUserId,

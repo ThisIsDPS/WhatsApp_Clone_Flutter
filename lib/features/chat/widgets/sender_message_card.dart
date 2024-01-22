@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone_flutter/common/enums/message_enum.dart';
+import 'package:whatsapp_clone_flutter/features/chat/widgets/display_text_image_gif.dart';
 
 class SenderMessageCard extends StatelessWidget {
   final String message;
   final String date;
+  final MessageEnum type;
 
   const SenderMessageCard({
     super.key,
     required this.message,
     required this.date,
+    required this.type,
   });
 
   @override
@@ -18,7 +22,8 @@ class SenderMessageCard extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.9,
+          maxWidth: MediaQuery.of(context).size.width * 0.8,
+          maxHeight: MediaQuery.of(context).size.height * 0.4,
         ),
         child: Card(
           shape: const RoundedRectangleBorder(
@@ -35,32 +40,32 @@ class SenderMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width * 0.05,
-                  left: MediaQuery.of(context).size.width * 0.02,
-                  right: MediaQuery.of(context).size.width * 0.06,
-                  top: MediaQuery.of(context).size.width * 0.02,
-                ),
-                child: Text(
-                  message,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: currentBrightness == Brightness.light
-                        ? Colors.black
-                        : Colors.white,
-                  ),
+                padding: type == MessageEnum.text
+                    ? EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.width * 0.05,
+                        left: MediaQuery.of(context).size.width * 0.02,
+                        right: MediaQuery.of(context).size.width * 0.06,
+                        top: MediaQuery.of(context).size.width * 0.02,
+                      )
+                    : const EdgeInsetsDirectional.all(4.0),
+                child: DisplayTextImageGIF(
+                  message: message,
+                  type: type,
                 ),
               ),
               Positioned(
-                bottom: 6,
-                right: 10,
+                bottom: type == MessageEnum.text ? 6 : 10,
+                right: type == MessageEnum.text ? 10 : 16,
                 child: Text(
                   date,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                     color: currentBrightness == Brightness.light
-                        ? Colors.grey.shade800
-                        : Colors.white70,
+                        ? type == MessageEnum.text
+                            ? Colors.grey.shade800
+                            : Colors.white
+                        : Colors.white,
                   ),
                 ),
               ),

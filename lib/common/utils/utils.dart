@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
+import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -20,8 +23,37 @@ Future<File?> pickImageFromGallery(BuildContext context) async {
       image = File(pickedImage.path);
     }
   } catch (e) {
-    // ignore: use_build_context_synchronously
     showSnackBar(context: context, content: e.toString());
   }
   return image;
+}
+
+Future<File?> pickVideoFromGallery(BuildContext context) async {
+  File? video;
+  try {
+    final pickedVideo =
+        await ImagePicker().pickVideo(source: ImageSource.gallery);
+
+    if (pickedVideo != null) {
+      video = File(pickedVideo.path);
+    }
+  } catch (e) {
+    showSnackBar(context: context, content: e.toString());
+  }
+  return video;
+}
+
+
+Future<GiphyGif?> pickGIF(BuildContext context) async {
+  GiphyGif? gif;
+  try {
+    gif = await Giphy.getGif(
+      context: context,
+      apiKey: 'KIydNP9M0RRTdLMcJT0raGntwsKuABXn',
+    );
+  } catch (e) {
+    showSnackBar(context: context, content: e.toString());
+  }
+
+  return gif;
 }

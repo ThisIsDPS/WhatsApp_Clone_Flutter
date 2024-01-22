@@ -7,7 +7,7 @@ import 'package:whatsapp_clone_flutter/features/select_contacts/controller/selec
 
 class SelectContactsScreen extends ConsumerWidget {
   static const String routeName = '/select-contact';
-  const SelectContactsScreen({Key? key}) : super(key: key);
+  const SelectContactsScreen({super.key});
 
   void selectContact(
       WidgetRef ref, Contact selectedContact, BuildContext context) {

@@ -42,7 +42,7 @@ class OTPScreen extends ConsumerWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

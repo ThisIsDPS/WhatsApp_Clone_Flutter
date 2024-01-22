@@ -6,7 +6,7 @@ import 'package:whatsapp_clone_flutter/features/auth/controller/auth_controller.
 
 class UserInformationScreen extends ConsumerStatefulWidget {
   static const String routeName = '/user-information';
-  const UserInformationScreen({Key? key}) : super(key: key);
+  const UserInformationScreen({super.key});
 
   @override
   ConsumerState<UserInformationScreen> createState() =>

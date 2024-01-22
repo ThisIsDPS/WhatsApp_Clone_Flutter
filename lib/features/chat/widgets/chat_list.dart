@@ -13,10 +13,10 @@ class ChatList extends ConsumerStatefulWidget {
   final String recieverUserId;
   // final bool isGroupChat;
   const ChatList({
-    Key? key,
+    super.key,
     required this.recieverUserId,
     // required this.isGroupChat,
-  }) : super(key: key);
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ChatListState();
@@ -88,7 +88,7 @@ class _ChatListState extends ConsumerState<ChatList> {
                 return MyMessageCard(
                   message: messageData.text,
                   date: timeSent,
-                  // type: messageData.type,
+                  type: messageData.type,
                   // repliedText: messageData.repliedMessage,
                   // username: messageData.repliedTo,
                   // repliedMessageType: messageData.repliedMessageType,
@@ -103,6 +103,7 @@ class _ChatListState extends ConsumerState<ChatList> {
               return SenderMessageCard(
                 message: messageData.text,
                 date: timeSent,
+                type: messageData.type,
                 // type: messageData.type,
                 // username: messageData.repliedTo,
                 // repliedMessageType: messageData.repliedMessageType,
