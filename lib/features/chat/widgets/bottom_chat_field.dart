@@ -6,6 +6,9 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_sound/public/flutter_sound_recorder.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:whatsapp_clone_flutter/common/enums/message_enum.dart';
 import 'package:whatsapp_clone_flutter/common/utils/utils.dart';
 import 'package:whatsapp_clone_flutter/features/chat/controller/chat_controller.dart';
@@ -34,9 +37,28 @@ class BottomChatField extends ConsumerStatefulWidget {
 
 class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   final TextEditingController messageController = TextEditingController();
+  FlutterSoundRecorder? soundRecorder;
+  bool isRecorderInit = false;
+  bool isRecording = false;
   bool isShowSendButton = false;
   bool isShowEmojiContainer = false;
   FocusNode focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    soundRecorder = FlutterSoundRecorder();
+    openAudio();
+  }
+
+  void openAudio() async {
+    final status = await Permission.microphone.request();
+    if (status != PermissionStatus.granted) {
+      throw RecordingPermissionException('Mic permission not allowed!');
+    }
+    await soundRecorder!.openRecorder();
+    isRecorderInit = true;
+  }
 
   void sendTextMessage() async {
     if (isShowSendButton) {
@@ -50,26 +72,25 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
         messageController.clear();
         isShowSendButton = !isShowSendButton;
       });
-    }
-    // else {
-    //   var tempDir = await getTemporaryDirectory();
-    //   var path = '${tempDir.path}/flutter_sound.aac';
-    //   if (!isRecorderInit) {
-    //     return;
-    //   }
-    //   if (isRecording) {
-    //     await _soundRecorder!.stopRecorder();
-    //     sendFileMessage(File(path), MessageEnum.audio);
-    //   } else {
-    //     await _soundRecorder!.startRecorder(
-    //       toFile: path,
-    //     );
-    //   }
+    } else {
+      var tempDir = await getTemporaryDirectory();
+      var path = '${tempDir.path}/flutter_sound.aac';
+      if (!isRecorderInit) {
+        return;
+      }
+      if (isRecording) {
+        await soundRecorder!.stopRecorder();
+        sendFileMessage(File(path), MessageEnum.audio);
+      } else {
+        await soundRecorder!.startRecorder(
+          toFile: path,
+        );
+      }
 
-    //   setState(() {
-    //     isRecording = !isRecording;
-    //   });
-    // }
+      setState(() {
+        isRecording = !isRecording;
+      });
+    }
   }
 
   void sendFileMessage(
@@ -140,6 +161,8 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void dispose() {
     super.dispose();
     messageController.dispose();
+    soundRecorder!.closeRecorder();
+    isRecorderInit = false;
   }
 
   @override
@@ -174,20 +197,22 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                     fillColor: widget.fillColor,
                     prefixIcon: Container(
                       // color:  Colors.red,
-                      width: isShowEmojiContainer ? MediaQuery.of(context).size.width * 0 : MediaQuery.of(context).size.width * 0.24,
+                      width: isShowEmojiContainer
+                          ? MediaQuery.of(context).size.width * 0
+                          : MediaQuery.of(context).size.width * 0.24,
                       padding: const EdgeInsets.only(left: 2),
                       child: isShowEmojiContainer
                           ? IconButton(
-                            visualDensity: VisualDensity.compact,
-                            onPressed: () {
-                              setState(() {
-                                isShowEmojiContainer = false;
-                                showKeyboard();
-                              });
-                            },
-                            icon: Icon(Icons.keyboard_alt_rounded,
-                                color: widget.iconColor),
-                          )
+                              visualDensity: VisualDensity.compact,
+                              onPressed: () {
+                                setState(() {
+                                  isShowEmojiContainer = false;
+                                  showKeyboard();
+                                });
+                              },
+                              icon: Icon(Icons.keyboard_alt_rounded,
+                                  color: widget.iconColor),
+                            )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -202,9 +227,9 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                                   onPressed: selectGIF,
                                   icon: Icon(Icons.gif_rounded,
                                       color: widget.iconColor),
-                                      style: IconButton.styleFrom(
-                                        iconSize: 34,
-                                      ),
+                                  style: IconButton.styleFrom(
+                                    iconSize: 34,
+                                  ),
                                 ),
                               ],
                             ),
@@ -272,13 +297,19 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                       sendTextMessage();
                     },
                     child: !isShowSendButton
-                        ? const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Icon(
-                              Icons.mic,
-                              color: Color.fromRGBO(237, 233, 233, 1),
-                              size: 24,
-                            ),
+                        ? Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: isRecording
+                                ? const Icon(
+                                    Icons.close,
+                                    color: Color.fromRGBO(237, 233, 233, 1),
+                                    size: 24,
+                                  )
+                                : const Icon(
+                                    Icons.mic,
+                                    color: Color.fromRGBO(237, 233, 233, 1),
+                                    size: 24,
+                                  ),
                           )
                         : const Padding(
                             padding: EdgeInsets.all(12.0),

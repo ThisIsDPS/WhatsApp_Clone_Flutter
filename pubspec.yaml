@@ -44,12 +44,16 @@ dependencies:
   flutter_riverpod: ^2.4.9
   image_picker: ^1.0.7
   flutter_contacts: ^1.1.7+1
-  uuid: ^4.3.3
+  uuid: ^3.0.1
   intl: ^0.19.0
   cached_network_image: ^3.3.1
   video_player: ^2.8.2
   emoji_picker_flutter: ^1.6.3
   enough_giphy_flutter: ^0.4.1
+  flutter_sound: ^9.2.13
+  permission_handler: ^11.2.0
+  path_provider: ^2.1.2
+  audioplayers: ^5.2.1
 
 dev_dependencies:
   flutter_test:

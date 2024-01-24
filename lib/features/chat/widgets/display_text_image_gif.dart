@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone_flutter/common/enums/message_enum.dart';
@@ -15,8 +16,8 @@ class DisplayTextImageGIF extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Brightness currentBrightness = Theme.of(context).brightness;
-    // bool isPlaying = false;
-    // final AudioPlayer audioPlayer = AudioPlayer();
+    bool isPlaying = false;
+    final AudioPlayer audioPlayer = AudioPlayer();
 
     return type == MessageEnum.text
         ? Text(
@@ -28,9 +29,7 @@ class DisplayTextImageGIF extends StatelessWidget {
                   : Colors.white,
             ),
           )
-        :
-        /*
-        type == MessageEnum.audio
+        : type == MessageEnum.audio
             ? StatefulBuilder(builder: (context, setState) {
                 return IconButton(
                   constraints: const BoxConstraints(
@@ -54,23 +53,23 @@ class DisplayTextImageGIF extends StatelessWidget {
                   ),
                 );
               })
-              : */
-        type == MessageEnum.video
-            ? ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                child: VideoPlayerItem(
-                  videoUrl: message,
-                ),
-              )
-            : type == MessageEnum.gif
-                ? CachedNetworkImage(
-                    imageUrl: message,
-                  )
-                : ClipRRect(
+            : type == MessageEnum.video
+                ? ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: CachedNetworkImage(
-                      imageUrl: message,
+                    child: VideoPlayerItem(
+                      videoUrl: message,
                     ),
-                  );
+                  )
+                : type == MessageEnum.gif
+                    ? CachedNetworkImage(
+                        imageUrl: message,
+                      )
+                    : ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        child: CachedNetworkImage(
+                          imageUrl: message,
+                        ),
+                      );
   }
 }

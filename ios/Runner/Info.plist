@@ -51,6 +51,8 @@
 	<string>Microphone Usage</string>
 	<key>NSContactsUsageDescription</key>
     <string>Contact list to chat</string>
+	<key>NSAppleMusicUsageDescription</key>
+    <string>Music Usage</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
