@@ -3,15 +3,16 @@
 import 'dart:io';
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:whatsapp_clone_flutter/common/enums/message_enum.dart';
+import 'package:whatsapp_clone_flutter/common/providers/message_reply_provider.dart';
 import 'package:whatsapp_clone_flutter/common/utils/utils.dart';
 import 'package:whatsapp_clone_flutter/features/chat/controller/chat_controller.dart';
+import 'package:whatsapp_clone_flutter/features/chat/widgets/message_reply_preview.dart';
 
 class BottomChatField extends ConsumerStatefulWidget {
   const BottomChatField({
@@ -167,11 +168,15 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   @override
   Widget build(BuildContext context) {
+    final messageReply = ref.watch(messageReplyProvider);
+    final isShowMessageReply = messageReply != null;
     return Container(
       // color: Colors.red,
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          isShowMessageReply ? const MessageReplyPreview() : const SizedBox(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,7 +285,12 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 12),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: isShowMessageReply
+                          ? const BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            )
+                          : BorderRadius.circular(50),
                       borderSide: BorderSide.none,
                     ),
                   ),

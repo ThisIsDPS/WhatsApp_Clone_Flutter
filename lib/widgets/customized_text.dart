@@ -24,7 +24,6 @@ class CustomizedText extends StatelessWidget {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                print('Privacy Policy tapped');
               },
           ),
           const TextSpan(
@@ -38,7 +37,6 @@ class CustomizedText extends StatelessWidget {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                print('Terms of Service tapped');
               },
           ),
           const TextSpan(

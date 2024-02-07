@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone_flutter/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone_flutter/features/chat/widgets/contacts_list.dart';
+import 'package:whatsapp_clone_flutter/features/status/screens/status_contacts_screen.dart';
 import 'package:whatsapp_clone_flutter/widgets/dynamic_floating_action.dart';
 // import 'package:whatsapp_clone_flutter/utils/colors.dart';
 
@@ -85,9 +86,7 @@ class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout> with Wi
           index: _currentIndex,
           children: const [
             ContactsList(),
-            Center(
-              child: Text('Updates Tab Content'),
-            ),
+            StatusContactsScreen(),
             Center(
               child: Text('Calls Tab Content'),
             ),

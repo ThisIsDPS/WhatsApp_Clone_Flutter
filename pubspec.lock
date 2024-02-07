@@ -957,6 +957,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  story_view:
+    dependency: "direct main"
+    description:
+      name: story_view
+      sha256: f5b81d91e42bc9e5884d9982933339c91a66d256060402e7ee2476c40c2bcd83
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.16.0"
   stream_channel:
     dependency: transitive
     description:
@@ -973,6 +981,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  swipe_to:
+    dependency: "direct main"
+    description:
+      name: swipe_to
+      sha256: "4f258fa175daa0da7d946ecd7393bb46483e11c2aecc218c2b061f70af7835f9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   synchronized:
     dependency: transitive
     description:
