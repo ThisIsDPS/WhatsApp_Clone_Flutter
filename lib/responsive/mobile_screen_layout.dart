@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone_flutter/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp_clone_flutter/features/chat/widgets/contacts_list.dart';
+import 'package:whatsapp_clone_flutter/features/group/screens/create_group_screen.dart';
 import 'package:whatsapp_clone_flutter/features/status/screens/status_contacts_screen.dart';
 import 'package:whatsapp_clone_flutter/widgets/dynamic_floating_action.dart';
 // import 'package:whatsapp_clone_flutter/utils/colors.dart';
@@ -13,7 +14,8 @@ class MobileScreenLayout extends ConsumerStatefulWidget {
   ConsumerState<MobileScreenLayout> createState() => _MobileScreenLayoutState();
 }
 
-class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout> with WidgetsBindingObserver {
+class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout>
+    with WidgetsBindingObserver {
   int _currentIndex = 0;
   // late TabController tabBarController;
 
@@ -63,9 +65,26 @@ class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout> with Wi
               onPressed: () {},
               icon: const Icon(Icons.search),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.more_vert),
+            PopupMenuButton(
+              icon: const Icon(
+                Icons.more_vert,
+                color: Color.fromARGB(255, 248, 245, 245),
+                size: 25,
+              ),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  labelTextStyle: const MaterialStatePropertyAll(TextStyle(
+                    color: Colors.black,
+                  )),
+                  child: const Text(
+                    'Create Group',
+                  ),
+                  onTap: () => Future(
+                    () => Navigator.pushNamed(
+                        context, CreateGroupScreen.routeName),
+                  ),
+                )
+              ],
             ),
           ],
           bottom: TabBar(
@@ -92,7 +111,8 @@ class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout> with Wi
             ),
           ],
         ),
-        floatingActionButton: dynamicFloatingActionButton(_currentIndex, context),
+        floatingActionButton:
+            dynamicFloatingActionButton(_currentIndex, context),
       ),
     );
   }

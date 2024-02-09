@@ -34,7 +34,7 @@ class StatusContactsScreen extends ConsumerWidget {
                   title: Text(
                     statusData.username,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -42,7 +42,7 @@ class StatusContactsScreen extends ConsumerWidget {
                     backgroundImage: NetworkImage(
                       statusData.profilePic,
                     ),
-                    radius: 26,
+                    radius: 28,
                   ),
                 ),
               ),

@@ -22,7 +22,7 @@ class BottomChatField extends ConsumerStatefulWidget {
     required this.hintTextColor,
     required this.currentBrightness,
     required this.recieverUserId,
-    // required this.isGroupChat,
+    required this.isGroupChat,
   });
 
   final Color fillColor;
@@ -30,7 +30,7 @@ class BottomChatField extends ConsumerStatefulWidget {
   final Color hintTextColor;
   final Brightness currentBrightness;
   final String recieverUserId;
-  // final bool isGroupChat;
+  final bool isGroupChat;
 
   @override
   ConsumerState<BottomChatField> createState() => _BottomChatFieldState();
@@ -67,7 +67,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             context,
             messageController.text.trim(),
             widget.recieverUserId,
-            // widget.isGroupChat,
+            widget.isGroupChat,
           );
       setState(() {
         messageController.clear();
@@ -103,7 +103,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           file,
           widget.recieverUserId,
           messageEnum,
-          // widget.isGroupChat,
+          widget.isGroupChat,
         );
   }
 
@@ -128,7 +128,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
             context,
             gif.url,
             widget.recieverUserId,
-            // widget.isGroupChat,
+            widget.isGroupChat,
           );
     }
   }
