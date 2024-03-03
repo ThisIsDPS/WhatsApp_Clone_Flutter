@@ -16,6 +16,7 @@ class StatusContactsScreen extends ConsumerWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Loader();
         }
+
         return ListView.builder(
           itemCount: snapshot.data!.length,
           itemBuilder: (context, index) {
@@ -29,12 +30,12 @@ class StatusContactsScreen extends ConsumerWidget {
                 );
               },
               child: Container(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                 child: ListTile(
                   title: Text(
                     statusData.username,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -42,7 +43,7 @@ class StatusContactsScreen extends ConsumerWidget {
                     backgroundImage: NetworkImage(
                       statusData.profilePic,
                     ),
-                    radius: 28,
+                    radius: 30,
                   ),
                 ),
               ),

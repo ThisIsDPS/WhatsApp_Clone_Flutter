@@ -36,8 +36,10 @@ class SenderMessageCard extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: ConstrainedBox(
           constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width * 0.25,
             maxWidth: MediaQuery.of(context).size.width * 0.8,
-            maxHeight: MediaQuery.of(context).size.height * 0.4,
+            // maxHeight: MediaQuery.of(context).size.height * 0.3,
+            minHeight: MediaQuery.of(context).size.height * 0.08,
           ),
           child: Card(
             shape: const RoundedRectangleBorder(
@@ -81,8 +83,8 @@ class SenderMessageCard extends StatelessWidget {
                             color: currentBrightness == Brightness.light
                                 ? const Color.fromARGB(232, 227, 227, 227)
                                     .withOpacity(0.8)
-                                : const Color.fromARGB(27, 155, 217, 163)
-                                    .withOpacity(0.3),
+                                : const Color.fromARGB(255, 27, 39, 47)
+                                    .withOpacity(0.8),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(5),
                             ),

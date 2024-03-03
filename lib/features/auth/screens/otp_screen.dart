@@ -20,6 +20,11 @@ class OTPScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    Brightness currentBrightness = Theme.of(context).brightness;
+    Color tempColor = const Color.fromARGB(255, 5, 94, 48);
+    if (currentBrightness == Brightness.dark) {
+      tempColor = Colors.white70;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -31,13 +36,13 @@ class OTPScreen extends ConsumerWidget {
           },
           icon: const Icon(Icons.arrow_back_ios),
           iconSize: 22,
-          color: const Color.fromARGB(255, 5, 94, 48),
+          color: tempColor,
         ),
-        title: const Text(
+        title: Text(
           'Verifying your number',
           style: TextStyle(
             fontSize: 20,
-            color: Color.fromARGB(255, 5, 94, 48),
+            color: tempColor,
           ),
         ),
         centerTitle: true,
@@ -50,11 +55,11 @@ class OTPScreen extends ConsumerWidget {
             const SizedBox(
               height: 20,
             ),
-            const Text(
+            Text(
               'We have sent an SMS with a code',
               style: TextStyle(
                 fontSize: 14,
-                color: Color.fromARGB(255, 5, 94, 48),
+                color: tempColor,
                 fontWeight: FontWeight.w600,
               ),
             ),

@@ -93,6 +93,13 @@ class Themeing {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         elevation: 1,
       ),
+      elevatedButtonTheme: const ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStatePropertyAll(Color.fromRGBO(5, 94, 78, 1)),
+          foregroundColor: MaterialStatePropertyAll(Colors.black),
+        ),
+      ),
     );
   }
 }

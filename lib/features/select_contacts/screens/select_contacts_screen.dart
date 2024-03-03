@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/contact.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone_flutter/common/widgets/error.dart';
 import 'package:whatsapp_clone_flutter/common/widgets/loader.dart';
@@ -61,7 +62,12 @@ class SelectContactsScreen extends ConsumerWidget {
                           ),
                         ),
                         leading: contact.photo == null
-                            ? null
+                            ? ProfilePicture(
+                                name: contact.displayName,
+                                radius: 22,
+                                fontsize: 16,
+                                count: 2,
+                              )
                             : CircleAvatar(
                                 backgroundImage: MemoryImage(contact.photo!),
                                 radius: 30,

@@ -87,7 +87,7 @@ class MobileChatScreen extends ConsumerWidget {
                 }),
         actions: [
           IconButton(
-            onPressed: () => makeCall(ref, context),
+            onPressed: () {},
             icon: const Icon(Icons.videocam),
             iconSize: 28,
           ),
@@ -103,23 +103,33 @@ class MobileChatScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         bottom: true,
-        child: Column(
-          children: [
-            Expanded(
-              child: ChatList(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(currentBrightness == Brightness.light
+                  ? 'https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'
+                  : 'https://e1.pxfuel.com/desktop-wallpaper/461/478/desktop-wallpaper-whatsapp-dark-whatsapp-chat.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: ChatList(
+                  recieverUserId: uid,
+                  isGroupChat: isGroupChat,
+                ),
+              ),
+              BottomChatField(
+                fillColor: fillColor,
+                iconColor: iconColor,
+                hintTextColor: hintTextColor,
+                currentBrightness: currentBrightness,
                 recieverUserId: uid,
                 isGroupChat: isGroupChat,
               ),
-            ),
-            BottomChatField(
-              fillColor: fillColor,
-              iconColor: iconColor,
-              hintTextColor: hintTextColor,
-              currentBrightness: currentBrightness,
-              recieverUserId: uid,
-              isGroupChat: isGroupChat,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

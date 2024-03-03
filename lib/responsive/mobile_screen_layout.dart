@@ -17,12 +17,10 @@ class MobileScreenLayout extends ConsumerStatefulWidget {
 class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout>
     with WidgetsBindingObserver {
   int _currentIndex = 0;
-  // late TabController tabBarController;
 
   @override
   void initState() {
     super.initState();
-    // tabBarController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -51,6 +49,7 @@ class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout>
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -73,8 +72,8 @@ class _MobileScreenLayoutState extends ConsumerState<MobileScreenLayout>
               ),
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  labelTextStyle: const MaterialStatePropertyAll(TextStyle(
-                    color: Colors.black,
+                  labelTextStyle: MaterialStatePropertyAll(TextStyle(
+                    color: currentBrightness == Brightness.light ? Colors.black : Colors.white,
                   )),
                   child: const Text(
                     'Create Group',

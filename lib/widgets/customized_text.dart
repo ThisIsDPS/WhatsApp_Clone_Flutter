@@ -8,6 +8,7 @@ class CustomizedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
@@ -16,31 +17,44 @@ class CustomizedText extends StatelessWidget {
           color: Colors.black,
         ),
         children: [
-          const TextSpan(text: 'Read our '),
+          TextSpan(
+            text: 'Read our ',
+            style: TextStyle(
+                color: currentBrightness == Brightness.dark
+                    ? Colors.white70
+                    : Colors.black),
+          ),
           TextSpan(
             text: 'Privacy Policy',
-            style: const TextStyle(
-              color: Color.fromARGB(255, 5, 94, 48),
+            style: TextStyle(
+              color: currentBrightness == Brightness.light
+                  ? const Color.fromARGB(255, 5, 94, 48)
+                  : const Color.fromRGBO(5, 94, 78, 1),
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-              },
+            recognizer: TapGestureRecognizer()..onTap = () {},
           ),
-          const TextSpan(
-            text:
-                '. Tap "Agree and continue" to accept the ',
+          TextSpan(
+            text: '. Tap "Agree and continue" to accept the ',
+            style: TextStyle(
+                color: currentBrightness == Brightness.dark
+                    ? Colors.white70
+                    : Colors.black),
           ),
           TextSpan(
             text: 'Terms of Service',
-            style: const TextStyle(
-              color: Color.fromARGB(255, 5, 94, 48),
+            style: TextStyle(
+              color: currentBrightness == Brightness.light
+                  ? const Color.fromARGB(255, 5, 94, 48)
+                  : const Color.fromRGBO(5, 94, 78, 1),
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-              },
+            recognizer: TapGestureRecognizer()..onTap = () {},
           ),
-          const TextSpan(
+          TextSpan(
             text: '.',
+            style: TextStyle(
+                color: currentBrightness == Brightness.dark
+                    ? Colors.white70
+                    : Colors.black),
           ),
         ],
       ),

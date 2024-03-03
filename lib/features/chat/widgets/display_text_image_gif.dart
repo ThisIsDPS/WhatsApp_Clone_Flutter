@@ -61,8 +61,12 @@ class DisplayTextImageGIF extends StatelessWidget {
                     ),
                   )
                 : type == MessageEnum.gif
-                    ? CachedNetworkImage(
-                        imageUrl: message,
+                    ? ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        child: CachedNetworkImage(
+                          imageUrl: message,
+                        ),
                       )
                     : ClipRRect(
                         borderRadius:

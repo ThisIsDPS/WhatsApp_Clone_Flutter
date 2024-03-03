@@ -12,6 +12,7 @@ class LandingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -22,19 +23,23 @@ class LandingScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 'Welcome to WhatsApp',
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w700,
-                  color: Color.fromARGB(255, 5, 94, 48),
+                  color: currentBrightness == Brightness.light
+                      ? const Color.fromARGB(255, 5, 94, 48)
+                      : Colors.white70,
                 ),
               ),
               const Spacer(),
               Image.asset(
                 'assets/images/bg.png',
                 width: 280,
-                color: const Color.fromRGBO(5, 94, 78, 1),
+                color: currentBrightness == Brightness.light
+                    ? const Color.fromRGBO(5, 94, 78, 1)
+                    : const Color.fromRGBO(5, 94, 78, 1),
               ),
               const Spacer(),
               const Padding(

@@ -52,6 +52,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
+    Color tempColor = const Color.fromARGB(255, 5, 94, 48);
+    if (currentBrightness == Brightness.dark) {
+      tempColor = Colors.white70;
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -62,13 +68,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           },
           icon: const Icon(Icons.arrow_back_ios),
           iconSize: 22,
-          color: const Color.fromARGB(255, 5, 94, 48),
+          color: tempColor,
         ),
-        title: const Text(
+        title: Text(
           'Enter your phone number',
           style: TextStyle(
             fontSize: 20,
-            color: Color.fromARGB(255, 5, 94, 48),
+            color: tempColor,
           ),
         ),
         centerTitle: true,
@@ -82,11 +88,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 'WhatsApp will need to verify your phone number',
                 style: TextStyle(
                   fontSize: 14,
-                  color: Color.fromARGB(255, 5, 94, 48),
+                  color: tempColor,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -95,10 +101,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               TextButton(
                 onPressed: pickCountry,
-                child: const Text(
+                child: Text(
                   'Pick Country',
                   style: TextStyle(
-                    color: Color.fromARGB(229, 3, 66, 36),
+                    color: currentBrightness == Brightness.light
+                        ? const Color.fromARGB(229, 3, 66, 36)
+                        : const Color.fromARGB(234, 35, 128, 204),
                     fontWeight: FontWeight.w500,
                     fontSize: 15,
                   ),

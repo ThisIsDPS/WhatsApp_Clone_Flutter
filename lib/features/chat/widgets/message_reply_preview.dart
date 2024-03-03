@@ -12,6 +12,7 @@ class MessageReplyPreview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Brightness currentBrightness = Theme.of(context).brightness;
     final messageReply = ref.watch(messageReplyProvider);
 
     return messageReply == null
@@ -19,9 +20,11 @@ class MessageReplyPreview extends ConsumerWidget {
         : Container(
             width: 330,
             padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 247, 247, 247),
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              color: currentBrightness == Brightness.light
+                  ? const Color.fromARGB(255, 247, 247, 247)
+                  : const Color.fromRGBO(31, 44, 52, 1),
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
               ),
@@ -52,9 +55,11 @@ class MessageReplyPreview extends ConsumerWidget {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 235, 234, 234),
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  decoration: BoxDecoration(
+                    color: currentBrightness == Brightness.light
+                        ? const Color.fromARGB(255, 235, 234, 234)
+                        : const Color.fromARGB(255, 21, 34, 43).withOpacity(1),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
                   ),
                   child: DisplayTextImageGIF(
                     message: messageReply.message,

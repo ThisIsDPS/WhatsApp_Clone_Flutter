@@ -40,6 +40,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -69,7 +70,9 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                     left: 80,
                     child: IconButton(
                       onPressed: selectImage,
-                      color: const Color.fromARGB(255, 94, 118, 111),
+                      color: currentBrightness == Brightness.light
+                          ? const Color.fromARGB(255, 94, 118, 111)
+                          : Colors.white,
                       icon: const Icon(
                         Icons.add_a_photo,
                       ),
@@ -92,7 +95,9 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                   ),
                   IconButton(
                     onPressed: storeUserData,
-                    color: const Color.fromARGB(255, 5, 94, 48),
+                    color: currentBrightness == Brightness.light
+                        ? const Color.fromARGB(255, 5, 94, 48)
+                        : Colors.white70,
                     iconSize: 30,
                     icon: const Icon(
                       Icons.done,
